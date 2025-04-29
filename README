@@ -5,6 +5,10 @@ sudo apt-get install libncurses-dev(on Ubuntu)
 
 Once you run the program, you will be prompted to guess the word. Type your guess and hit enter. If your guess is correct, you win the game. If your guess is incorrect, you will have five more attempts to guess the word. If you run out of attempts, you lose the game.
 
+New Features:
+- Press 'H' during the game to view a help menu with instructions and controls.
+- Press 'Q' to quit the game at any time.
+
 1.After running the program, the game will display a prompt asking you to guess the word.
 2.Type your guess and hit enter.
 3.If your guess is correct, the game will display a message congratulating you and telling you how many attempts you took to guess the word.
