@@ -13,6 +13,7 @@ void print_previous_guesses(char guess[MAX_GUESSES][WORD_LENGTH + 1], char word[
 void print_current_guess(char guess[MAX_GUESSES][WORD_LENGTH + 1], char word[WORD_LENGTH], int num_guesses, int num_remaining_guesses);
 void get_next_guess(char guess[MAX_GUESSES][WORD_LENGTH + 1], int num_guesses);
 int check_guess(char guess[MAX_GUESSES][WORD_LENGTH + 1], char word[WORD_LENGTH], int num_guesses);
+void display_help_menu();
 
 int main()
 {
@@ -53,9 +54,24 @@ int main()
         clear();
         print_previous_guesses(guess, word, num_guesses);
         print_current_guess(guess, word, num_guesses, num_remaining_guesses);
+        printw("\nPress 'H' for help or 'Q' to quit.\n");
+        refresh();
+
+        int ch = getch();
+        if (ch == 'H' || ch == 'h')
+        {
+            display_help_menu();
+            continue;
+        }
+        else if (ch == 'Q' || ch == 'q')
+        {
+            printw("\nYou quit the game. The word was \"%s\".\n", word);
+            break;
+        }
+
         get_next_guess(guess, num_guesses);
         num_correct = check_guess(guess, word, num_guesses);
-    
+
         num_remaining_guesses--;
         num_guesses++;
         if (num_correct == WORD_LENGTH)
@@ -64,12 +80,13 @@ int main()
             break;
         }
     }
-    if (num_remaining_guesses == 0)
+
+    if (num_remaining_guesses == 0 && num_correct < WORD_LENGTH)
     {
         printw("\nSorry, you ran out of guesses. The word was \"%s\".\n", word);
     }
+
     refresh();
-    // Wait for user input before exiting
     getch();
     endwin();
 
@@ -190,4 +207,20 @@ int check_guess(char guess[MAX_GUESSES][WORD_LENGTH + 1], char word[WORD_LENGTH]
         }
     }
     return num_correct;
+}
+
+// Function to display the help menu
+void display_help_menu()
+{
+    clear();
+    printw("HELP MENU:\n");
+    printw("1. Guess the five-letter word within six attempts.\n");
+    printw("2. After each guess, you'll see feedback:\n");
+    printw("   - Green: Correct letter in the correct position.\n");
+    printw("   - Yellow: Correct letter in the wrong position.\n");
+    printw("3. Press 'H' anytime to view this help menu.\n");
+    printw("4. Press 'Q' to quit the game.\n");
+    printw("\nPress any key to return to the game...");
+    refresh();
+    getch();
 }
